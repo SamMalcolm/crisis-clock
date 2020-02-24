@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title><%= title %></title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+	<table class="clock">
+		<thead>
+			<tr>
+				<th>Days</th>
+				<th>Hours</th>
+				<th>Minutes</th>
+				<th>Seconds</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="days">0</td>
+				<td class="hours">0</td>
+				<td class="minutes">0</td>
+				<td class="seconds">0</td>
+			</tr>
+		</tbody>
+	</table>
+	<button class="button count">Crisis!</button>
+	<h1 class="crisis">Crisis!</h1>
+	<br />
+	<h3>Crisis Count:</h3>
+	<br />
+	<div class="tally">
+
+	</div>
+	<script src="socket.io.js"></script>
+	<script src="/javascripts/script.js"></script>
+</body>
+
+</html>

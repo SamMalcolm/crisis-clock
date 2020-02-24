@@ -1,0 +1,123 @@
+:root {
+    --rotation: 45deg;
+}
+
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: black;
+    color: white;
+    font-family: sans-serif;
+    height: 100%;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.clock {
+    font-size: 5rem;
+    margin: auto;
+    text-align: center;
+}
+
+.clock td,
+.clock th {
+    padding: 15px;
+}
+
+.crisis {
+    color:
+        red;
+    font-size: 75px;
+    display: none;
+}
+
+.crisisAnimation {
+    display: block;
+    position: fixed;
+    animation: crisisAnimation 1s ease-in-out;
+}
+
+@keyframes crisisAnimation {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) rotate(var(--rotation));
+    }
+
+    20% {
+        opacity: 4;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.1) rotate(var(--rotation));
+    }
+}
+
+/* TALLY */
+
+.count {
+    background-color: red;
+    border: none;
+    border-radius: .25em;
+    color: #fff;
+    padding: 1em;
+    width: 100%;
+}
+
+.gate {
+    display: inline-block;
+    filter: blur(.5px);
+    height: 2em;
+    margin: 1em 1em 0 0;
+    position: relative;
+    width: 3em;
+}
+
+.gate>.bar {
+    animation: drawVertical .2s ease-in-out;
+    background-color: currentColor;
+    border-radius: 50%;
+    display: inline-block;
+    height: 2em;
+    margin: 0 .32em;
+    transform-origin: top;
+    width: .1em;
+}
+
+.gate>.bar:nth-child(5) {
+    animation: drawDiagonal .2s ease-in-out;
+    height: .1em;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: rotate(-32deg);
+    transform-origin: top right;
+    width: 3.6em;
+}
+
+@keyframes drawVertical {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes drawDiagonal {
+    0% {
+        transform: rotate(-32deg) scale(0);
+    }
+
+    100% {
+        transform: rotate(-32deg) scale(1);
+    }
+}
