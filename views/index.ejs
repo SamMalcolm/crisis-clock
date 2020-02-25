@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title><%= title %></title>
+	<title>Crisis Counter</title>
 	<link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
@@ -33,6 +33,10 @@
 	<div class="tally">
 
 	</div>
+	<script>
+		var total = parseInt("<%= crisis_count %>")
+		var theDate = new Date("<%= last_crisis %>");
+	</script>
 	<script src="socket.io.js"></script>
 	<script src="/javascripts/script.js"></script>
 </body>

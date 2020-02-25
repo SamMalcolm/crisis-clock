@@ -5,8 +5,65 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-const io = require('socket.io')(app);
 var app = express();
+var debug = require('debug')('cc:server');
+var http = require('http');
+var moment = require('moment');
+/**
+ * Get port from environment and store in Express.
+ */
+
+function onListening() {
+	var addr = server.address();
+	var bind = typeof addr === 'string'
+		? 'pipe ' + addr
+		: 'port ' + addr.port;
+	debug('Listening on ' + bind);
+}
+
+
+function onError(error) {
+	if (error.syscall !== 'listen') {
+		throw error;
+	}
+
+	var bind = typeof port === 'string'
+		? 'Pipe ' + port
+		: 'Port ' + port;
+
+	// handle specific listen errors with friendly messages
+	switch (error.code) {
+		case 'EACCES':
+			console.error(bind + ' requires elevated privileges');
+			process.exit(1);
+			break;
+		case 'EADDRINUSE':
+			console.error(bind + ' is already in use');
+			process.exit(1);
+			break;
+		default:
+			throw error;
+	}
+}
+
+function normalizePort(val) {
+	var port = parseInt(val, 10);
+
+	if (isNaN(port)) {
+		// named pipe
+		return val;
+	}
+
+	if (port >= 0) {
+		// port number
+		return port;
+	}
+
+	return false;
+}
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,10 +94,26 @@ app.use(function (err, req, res, next) {
 	res.render('error');
 });
 
+var server = http.createServer(app);
+var io = require('socket.io')(server);
+var crisis_count = 0;
+var last_crisis = moment(new Date()).format();
 io.on('connection', (socket) => {
+	console.log("SOCKET CONNECTED");
 	socket.on('crisis', (data) => {
+		crisis_count++;
+		last_crisis = moment(new Date()).format();
+		console.log("CRISIS EMITED");
 		socket.broadcast.emit('crisis')
 	})
 })
+/**
+ * Listen on provided port, on all network interfaces.
+ */
 
-module.exports = app;
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+
+module.exports = { app, crisis_count, last_crisis };

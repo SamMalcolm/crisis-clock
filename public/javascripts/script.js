@@ -1,4 +1,3 @@
-const theDate = new Date();
 const today = new Date();
 let seconds_since_today = today.getTime();
 theDate.setFullYear(2020);
@@ -49,7 +48,6 @@ setInterval(() => {
 /* Tally */
 
 var btn = document.querySelector('.count');
-var total = 3;
 
 function addGate() {
 	var gate = document.createElement('div');
@@ -131,8 +129,17 @@ const crisisAnimation = () => {
 }
 
 socket.on('crisis', () => {
-	tally();
+	for (let i = 0; i < timer.length; i++) {
+		timer[i] = 0;
+	}
+
+	document.querySelector(".days").innerHTML = timer[0];
+	document.querySelector(".hours").innerHTML = timer[1];
+	document.querySelector(".minutes").innerHTML = timer[2];
+	document.querySelector(".seconds").innerHTML = timer[3];
+
 	crisisAnimation();
+	tally();
 })
 
 btn.addEventListener('click', () => {
