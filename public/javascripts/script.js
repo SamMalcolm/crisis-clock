@@ -1,10 +1,5 @@
 const today = new Date();
 let seconds_since_today = today.getTime();
-theDate.setFullYear(2020);
-theDate.setDate(1);
-theDate.setMonth(1);
-theDate.setHours(10);
-theDate.setMinutes(18);
 let time = theDate.getTime();
 time = seconds_since_today - time;
 let remainingTime = 0;
@@ -78,26 +73,22 @@ function tally() {
 	let gates = document.querySelectorAll(".gate")
 	if (!gates.length) {
 		addGate();
-	}
+	} console.log(total);
 	if (total % 5 === 0) {
 		addGate();
 	}
 	addBar();
 }
 function tallyInit() {
-	let gates = document.querySelectorAll(".gate")
-	if (!gates.length) {
-		addGate();
+	for (let i = 0; i < total; i++) {
+		if (i % 5 === 0) {
+			addGate();
+		}
+		addBarInit();
 	}
-	if (total % 5 === 0) {
-		addGate();
-	}
-	addBarInit();
-}
 
-for (let i = 0; i < total; i++) {
-	tallyInit();
 }
+tallyInit();
 
 const crisisAnimation = () => {
 	console.log("ANIMATE");

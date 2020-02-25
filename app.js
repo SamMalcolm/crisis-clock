@@ -96,13 +96,13 @@ app.use(function (err, req, res, next) {
 
 var server = http.createServer(app);
 var io = require('socket.io')(server);
-var crisis_count = 0;
-var last_crisis = moment(new Date()).format();
+global.crisis_count = 0;
+global.last_crisis = moment(new Date()).format();
 io.on('connection', (socket) => {
 	console.log("SOCKET CONNECTED");
 	socket.on('crisis', (data) => {
-		crisis_count++;
-		last_crisis = moment(new Date()).format();
+		global.crisis_count++;
+		global.last_crisis = moment(new Date()).format();
 		console.log("CRISIS EMITED");
 		socket.broadcast.emit('crisis')
 	})
