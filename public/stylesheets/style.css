@@ -11,6 +11,11 @@ body {
     height: 100%;
 }
 
+.celebrate {
+    color: black !important;
+    background-color: #00FF00;
+}
+
 a {
     color: #00B7FF;
 }

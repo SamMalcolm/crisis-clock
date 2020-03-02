@@ -12,7 +12,32 @@ let minutes = Math.floor(remainingTime / (60));
 let seconds = Math.floor(remainingTime - minutes * 60);
 let timer = [days, hours, minutes, seconds];
 
+let positive_sounds = [new Audio('https://sammalcolm-static.s3-us-west-2.amazonaws.com/assets/sounds/air_horn.mp3')];
+let negative_sounds = [
+	new Audio('https://sammalcolm-static.s3-us-west-2.amazonaws.com/assets/sounds/explosion-1.mp3'),
+	new Audio('https://sammalcolm-static.s3-us-west-2.amazonaws.com/assets/sounds/noot-noot.mp3'),
+	new Audio('https://sammalcolm-static.s3-us-west-2.amazonaws.com/assets/sounds/siren-1.mp3'),
+	new Audio('https://sammalcolm-static.s3-us-west-2.amazonaws.com/assets/sounds/pacman-death.mp3')
+];
+
 var socket = io();
+
+const celebrate = () => {
+
+	let rand_index = Math.random();
+	rand_index = rand_index * positive_sounds.length;
+	sound = positive_sounds[Math.floor(rand_index)];
+	console.log(rand_index);
+	sound.play();
+	let count = 0;
+	const inte = setInterval(() => {
+		count++;
+		document.querySelector("body").classList.toggle("celebrate")
+		if (count == 6) {
+			clearInterval(inte);
+		}
+	}, 250)
+}
 
 setInterval(() => {
 
@@ -23,6 +48,7 @@ setInterval(() => {
 		timer[2]++;
 	}
 	if (timer[2] == 60) {
+		celebrate();
 		timer[2] = 0;
 		timer[1]++;
 	}
@@ -92,6 +118,13 @@ tallyInit();
 
 const crisisAnimation = () => {
 	console.log("ANIMATE");
+
+	let rand_index = Math.random();
+	rand_index = rand_index * negative_sounds.length;
+	sound = negative_sounds[Math.floor(rand_index)];
+	console.log(rand_index);
+	sound.play();
+
 	var leftValue = Math.floor(Math.random() * 100);
 	var topValue = Math.floor(Math.random() * 100);
 	var rotation = Math.floor(Math.random() * 100);
